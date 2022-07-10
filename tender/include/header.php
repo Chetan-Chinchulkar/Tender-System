@@ -17,7 +17,6 @@ $row = mysqli_fetch_array($res);
 <link href="css/style9.css" rel='stylesheet' type='text/css' />
 
 
-
 <!-- Header Menu -->
 <ul class="nav user-menu" style="position: absolute;right:0;top:0 ;z-index:5000;">
 

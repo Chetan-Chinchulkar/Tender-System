@@ -5,7 +5,12 @@
 <!-- form for yes/no in tender fee -->
 <html>
     <head>
-        <title>Tender</title>
+    <title>Tender</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+    <link href="css/index.css" rel='stylesheet' type='text/css' />
     </head>
     <body>
         <form action="add_tender_fee.php" method="POST">

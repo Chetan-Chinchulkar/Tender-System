@@ -4,7 +4,12 @@
 <html>
     <!-- yes/no type for EMD -->
     <head>
-        <title>Tender</title>
+    <title>Tender</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+    <link href="css/index.css" rel='stylesheet' type='text/css' />
     </head> 
     <body>
         <!-- yes/no form for EMD -->

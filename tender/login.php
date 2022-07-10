@@ -1,7 +1,12 @@
 <!-- create login system with mysql database -->
 <?php
-include 'include/connection.php';
+include '/include/connection.php';
+
+// start session
+session_start();
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -12,11 +17,10 @@ include 'include/connection.php';
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-    <link href="css/style9.css" rel='stylesheet' type='text/css' />
+    <link href="css/index.css" rel='stylesheet' type='text/css' />
 
 
 </head>
-
 <body>
     <!-- <h1>hi there</h1> -->
     <div id="first">
@@ -32,7 +36,7 @@ include 'include/connection.php';
                     <form action="" method="POST">
                         <div class="username">
                             <span class="username">Username:</span>
-                            <input type="text" name="username" class="name" placeholder="Enter Username" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
+                            <input type="text" name="username" class="name" placeholder="Enter Username" >
                             <div class="clearfix"></div>
                         </div>
                         <div class="password-agileits">
@@ -63,47 +67,42 @@ include 'include/connection.php';
             </div>
 
             <script>
-
+                // if user name or password is empty, show error message
+                if (document.getElementById('failure').style.display == 'block') {
+                    document.getElementById('failure').style.display = 'block';
+                }
             </script>
         </div>
+
+
 </body>
 
 </html>
 
-<?php
-
-?>
-
-
-
-
-
-
-
-
-
-
 
 <?php
-if (isset($_POST["submit1"])) {
-    $count = 0;
+        if (isset($_POST["submit1"])) {
+            $count = 0;
 
-    $res = mysqli_query($link, "select * from admin where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
-    $count = mysqli_num_rows($res);
-    if ($count == 0) {
-?>
-        <script type="text/javascript">
-            document.getElementById('failure').style.display = "block";
-        </script>
-    <?php
-    } else {
-        $_SESSION["username"] =  $_POST["username"];
-    ?>
-        <script type="text/javascript">
-            window.location = "leaves.php";
-        </script>
-<?php
-    }
-}
-?>
-
+            $res = mysqli_query($link, "select * from admin where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
+            $count = mysqli_num_rows($res);
+            if ($count == 0) {
+        ?>
+                <script type="text/javascript">
+                    document.getElementById('failure').style.display = "block";
+                </script>
+            <?php
+            } else {
+                $_SESSION["username"] =  $_POST["username"];
+            ?>
+                <!-- display success message -->
+                <div>
+                    <h1 style="text-align: center;">Welcome <?php echo $_SESSION["username"]; ?></h1>
+                </div>
+                <script type="text/javascript">
+                    window.location = "add_tender.php";
+                </script>
+        <?php
+            }
+        }
+        ?>
