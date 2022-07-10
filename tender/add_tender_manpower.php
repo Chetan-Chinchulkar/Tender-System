@@ -1,2 +1,52 @@
 
 
+<!-- form input if manpower is required -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tender</title>
+    </head>
+    <body>
+        <form action="add_tender_manpower.php" method="POST">
+            <div class="form-group">
+                <label for="manpower">Manpower</label>
+                <select class="form-control" id="manpower" name="manpower">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <!-- form input for manpower option for offsite or deployment -->
+            <div class="manpower_div">
+
+                <div class="form-group">
+                    <label for="manpower_option">Manpower Option</label>
+                    <select class="form-control" id="manpower_option" name="manpower_option">
+                        <option value="offsite">Offsite</option>
+                        <option value="deployment">Deployment</option>
+                    </select>
+                </div>
+                <!-- text input for list of personal required -->
+                <div class="form-group">
+                    <label for="personal_required">Personal Required</label>
+                    <textarea class="form-control" id="personal_required" name="personal_required" rows="3"></textarea>
+                </div>
+            </div>
+
+        </form>
+        <script>
+            // to show option for Manpower if Yes is selected
+            var manpower = document.getElementById("manpower");
+            var manpower_div = document.getElementById("manpower_div");
+
+            manpower.addEventListener("change", function() {
+                if (manpower.value == "yes") {
+                    manpower_div.style.display = "block";
+                } else {
+                    manpower_div.style.display = "none";
+                }
+            });
+        </script>
+    </body>
+</html>
+
