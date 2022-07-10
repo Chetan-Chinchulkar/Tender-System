@@ -7,15 +7,10 @@ include 'include/connection.php';
 <html>
 
 <head>
-    <title>HRMS </title>
+    <title>Tender </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="application/x-javascript">
-
-
-
-    </script>
-
+    
     <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
     <link href="css/style9.css" rel='stylesheet' type='text/css' />
 
@@ -57,7 +52,10 @@ include 'include/connection.php';
                     </form>
                 </div>
 
-                <div class="clearfix"></div>
+                <div class="clearfix">
+                    <!-- button to redirect to add_tender.php -->
+                    <a href="add_tender.php" class="btn btn-primary" style="margin-top: 20px;">Add Tender</a>
+                </div>
 
                 <div class="footer">
 
