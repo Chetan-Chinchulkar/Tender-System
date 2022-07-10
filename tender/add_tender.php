@@ -6,7 +6,7 @@
 include 'include/connection.php';
 
 // start session
-session_start();
+// session_start();
 ?>
 
 <!-- include right_bar.php -->
@@ -25,6 +25,7 @@ include 'include/navbar.php';
     
     <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
     <link href="css/index.css" rel='stylesheet' type='text/css' />
+    <link href="css/custom.css" rel='stylesheet' type='text/css' />
     </head>
     <body>
         <div class="main-wthree">
@@ -33,7 +34,7 @@ include 'include/navbar.php';
                 <form action="add_tender.php" method="POST">
                     <div class="form-group">
                         <label for="serial_number">Serial Number</label>
-                        <input type="text" class="form-control" id="serial_number" name="serial_number" placeholder="Serial Number">
+                        <input type="text" class="form-control" id="serial_number" name="serial_number" placeholder="Serial Number" disabled>
                     </div>
                     <div class="form-group">
                         <label for="city">City</label>
@@ -59,7 +60,14 @@ include 'include/navbar.php';
                         <label for="tender_date">Tender Date</label>
                         <input type="date" class="form-control" id="tender_date" name="tender_date" placeholder="Tender Date">
                     </div>
-                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" name="submit" class="btn btn-primary" >Submit</button>
+
+
+                    <div class="alert alert-warning" id="failure" style="display: none;">
+                    <strong>Warning!</strong> Indicates a warning that might need attention.
+                    
+                    </div>
+                    
                 </form>
             </div>
         </div>
@@ -75,15 +83,22 @@ include 'include/footer.php';
 <!-- add php code to submit the form details -->
 <?php
 if (isset($_POST["submit"])) {
-    $count = 0;
 
-    $res = mysqli_query($link, "select * from tender_table where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
-    $count = mysqli_num_rows($res);
-    if ($count == 0) {
-        echo "<script>document.getElementById('failure').style.display = 'block';</script>";
-    } else {
+    if ($_SESSION['logged_in'] ==true) {
+        // echo "<script>document.getElementById('failure').style.display = 'block';</script>";
+        
         $res = mysqli_query($link, "insert into tender values('$_POST[serial_number]','$_POST[city]','$_POST[state]','$_POST[client_name]','$_POST[description]','$_POST[tender_number]','$_POST[tender_date]')") or die(mysqli_error($link));
         echo "<script>document.getElementById('success').style.display = 'block';</script>";
+        header("location: add_tender_bid.php");
+    }
+    else {
+        ?>
+        <script>
+            document.getElementById('failure').style.display = 'block';
+            alert("Please login to continue");
+            window.location.href = "login.php";
+        </script>
+        <?php
     }
 }
 ?>

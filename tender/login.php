@@ -22,6 +22,7 @@ include 'include/navbar.php';
     
     <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
     <link href="css/index.css" rel='stylesheet' type='text/css' />
+    <link href="css/custom.css" rel='stylesheet' type='text/css' />
 
 
 </head>
@@ -71,6 +72,9 @@ include 'include/navbar.php';
                         <div class="login-w3">
                             <input type="submit" name="submit1" class="login" value="Log In">
                         </div>
+                        <div class="alert alert-success" id="success" role="alert" style="display: none;">
+                        This is a success alert—check it out!
+                        </div>
                         <div class="alert alert-danger" id="failure" style="margin-top: 80px; display:none;">
                             <strong>Does not Match</strong> Invalid Username or Password.
                         </div>
@@ -100,23 +104,26 @@ include 'include/footer.php';
 
             $res = mysqli_query($link, "select * from admin where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
             $count = mysqli_num_rows($res);
-            if ($count == 0) {
-        ?>
+
+            if ($count == 1) {
+                $_SESSION['logged_in'] = true; // put session value here 
+                // header("location: add_tender.php");
+                ?>
+                <script type="text/javascript">
+                document.getElementById('success').style.display = "block";
+                window.location.href = "add_tender.php";
+                </script>
+                 
+                <?php
+            } else {
+                $count = 0;
+                $error = "Your Login Name or Password is invalid";
+                ?>
                 <script type="text/javascript">
                     document.getElementById('failure').style.display = "block";
                 </script>
             <?php
-            } else {
-                $_SESSION["username"] =  $_POST["username"];
-            ?>
-                <!-- display success message -->
-                <div>
-                    <h1 style="text-align: center;">Welcome <?php echo $_SESSION["username"]; ?></h1>
-                </div>
-                <script type="text/javascript">
-                    window.location = "add_tender.php";
-                </script>
-<?php
-    }
+            }
+            
 }
 ?>

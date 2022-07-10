@@ -25,6 +25,7 @@ include 'include/navbar.php';
     
     <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
     <link href="css/index.css" rel='stylesheet' type='text/css' />
+    <link href="css/custom.css" rel='stylesheet' type='text/css' />
     </head>
     <body>
         <div class="main-wthree">
