@@ -1,5 +1,19 @@
 <!-- php code for adding  details of Pre-bid date,pre-bid time, last date of submission and time of submission -->
 
+
+<!-- create login system with mysql database -->
+<?php
+include 'include/connection.php';
+
+// start session
+session_start();
+?>
+
+<!-- include right_bar.php -->
+<?php
+include 'include/navbar.php';
+?>
+
 <!DOCTYPE html>
 <!-- html code -->
 <html>
@@ -13,26 +27,37 @@
     </head>
     <body>
         <!-- create form  -->
-        <form action="add_tender.php" method="POST">
-            <div class="form-group">
-                <label for="pre_bid_date">Pre-bid Date</label>
-                <input type="date" class="form-control" id="pre_bid_date" name="pre_bid_date" placeholder="Pre-bid Date">
+        <div class="main-wthree">
+            <div class="container">
+                <form action="add_tender.php" method="POST">
+                    <div class="form-group">
+                        <label for="pre_bid_date">Pre-bid Date</label>
+                        <input type="date" class="form-control" id="pre_bid_date" name="pre_bid_date" placeholder="Pre-bid Date">
+                    </div>
+                    <div class="form-group">
+                        <label for="pre_bid_time">Pre-bid Time</label>
+                        <input type="time" class="form-control" id="pre_bid_time" name="pre_bid_time" placeholder="Pre-bid Time">
+                    </div>
+                    <div class="form-group">
+                        <label for="last_date_of_submission">Last Date of Submission</label>
+                        <input type="date" class="form-control" id="last_date_of_submission" name="last_date_of_submission" placeholder="Last Date of Submission">
+                    </div>
+                    <div class="form-group">
+                        <label for="time_of_submission">Time of Submission</label>
+                        <input type="time" class="form-control" id="time_of_submission" name="time_of_submission" placeholder="Last Date of Submission">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="pre_bid_time">Pre-bid Time</label>
-                <input type="time" class="form-control" id="pre_bid_time" name="pre_bid_time" placeholder="Pre-bid Time">
-            </div>
-            <div class="form-group">
-                <label for="last_date_of_submission">Last Date of Submission</label>
-                <input type="date" class="form-control" id="last_date_of_submission" name="last_date_of_submission" placeholder="Last Date of Submission">
-            </div>
-            <div class="form-group">
-                <label for="time_of_submission">Time of Submission</label>
-                <input type="time" class="form-control" id="time_of_submission" name="time_of_submission" placeholder="Last Date of Submission">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        
     </body>
 </html>
+
+<?php
+include 'include/footer.php';
+
+?>
 
 
 <!-- php code to submit form details -->

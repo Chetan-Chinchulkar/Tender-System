@@ -1,12 +1,16 @@
 <!-- create login system with mysql database -->
 <?php
-include '/include/connection.php';
+include 'include/connection.php';
 
 // start session
 session_start();
 ?>
 
+<!-- include right_bar.php -->
+<?php
+include 'include/navbar.php';
 
+?>
 
 <!DOCTYPE html>
 <html>
@@ -23,16 +27,33 @@ session_start();
 </head>
 <body>
     <!-- <h1>hi there</h1> -->
-    <div id="first">
+
 
         <div class="main-wthree">
             <div class="container">
                 <div class="sin-w3-agile">
-                    <span style="color:white">
+                    <div class="row align-items-center">
+                        <div class="col-md-5">
+                            <a href="login.php">
+                                <img src="download.png" alt="Company Logo" style="width:200px">
+                            </a>
+                        </div>
+                        <div class="col-md-7">
+                            <h1 style="text-align: left;color:aliceblue"> 
+                                <b>Login </b>
+                            </h1>
 
-                        <h1 style="text-align: center;">Admin Login </h1>
+                        </div>
+                    </div>
+                    <!-- <span style="color:white">
+
+                        <h1 style="text-align: center;"> Login </h1>
                     </span>
-                    <h2><a href="login.php"><img src="download.png" alt="Company Logo" style="width:200px"></a></h2>
+                    <h2><a href="login.php"><img src="download.png" alt="Company Logo" style="width:200px"></a></h2> -->
+                    </br>
+                    </br>
+                    </br>
+                    </br>
                     <form action="" method="POST">
                         <div class="username">
                             <span class="username">Username:</span>
@@ -56,28 +77,21 @@ session_start();
                     </form>
                 </div>
 
-                <div class="clearfix">
-                    <!-- button to redirect to add_tender.php -->
-                    <a href="add_tender.php" class="btn btn-primary" style="margin-top: 20px;">Add Tender</a>
-                </div>
-
-                <div class="footer">
-
-                </div>
+              
             </div>
 
-            <script>
-                // if user name or password is empty, show error message
-                if (document.getElementById('failure').style.display == 'block') {
-                    document.getElementById('failure').style.display = 'block';
-                }
-            </script>
+            
         </div>
 
 
 </body>
 
 </html>
+
+<?php
+include 'include/footer.php';
+
+?>
 
 
 <?php
@@ -102,7 +116,7 @@ session_start();
                 <script type="text/javascript">
                     window.location = "add_tender.php";
                 </script>
-        <?php
-            }
-        }
-        ?>
+<?php
+    }
+}
+?>

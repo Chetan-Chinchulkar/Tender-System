@@ -1,6 +1,20 @@
 
 <!-- allocation details -->
 
+
+<!-- create login system with mysql database -->
+<?php
+include 'include/connection.php';
+
+// start session
+session_start();
+?>
+
+<!-- include right_bar.php -->
+<?php
+include 'include/navbar.php';
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,18 +26,27 @@
     <link href="css/index.css" rel='stylesheet' type='text/css' />
     </head>
     <body>
-        <form action="add_tender.php" method="POST">
-            <!-- allocation details in textarea -->
-            <div class="form-group">
-                <label for="allocation_details">Allocation Details</label>
-                <textarea class="form-control" id="allocation_details" name="allocation_details" rows="3"></textarea>
-            </div>
+        <div class="main-wthree">
+            <div class="container">
+                <form action="add_tender.php" method="POST">
+                    <!-- allocation details in textarea -->
+                    <div class="form-group">
+                        <label for="allocation_details">Allocation Details</label>
+                        <textarea class="form-control" id="allocation_details" name="allocation_details" rows="3"></textarea>
+                    </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
 
     </body>
 </html>
+
+<?php
+include 'include/footer.php';
+
+?>
 
 <!-- code to submit the form -->
 <?php

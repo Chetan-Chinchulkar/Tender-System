@@ -1,5 +1,19 @@
 
 
+
+<!-- create login system with mysql database -->
+<?php
+include 'include/connection.php';
+
+// start session
+session_start();
+?>
+
+<!-- include right_bar.php -->
+<?php
+include 'include/navbar.php';
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,32 +25,40 @@
     <link href="css/index.css" rel='stylesheet' type='text/css' />
     </head>
     <body>
-        <!-- code for textarea for performance gurantee -->
-        <form action="add_tender.php" method="POST">
-            <div class="form-group">
-                <label for="performance_guarantee">Performance Guarantee</label>
-                <textarea class="form-control" id="performance_guarantee" name="performance_guarantee" rows="3"></textarea>
+        <div class="main-wthree">
+            <div class="container">
+            <!-- code for textarea for performance gurantee -->
+                <form action="add_tender.php" method="POST">
+                    <div class="form-group">
+                        <label for="performance_guarantee">Performance Guarantee</label>
+                        <textarea class="form-control" id="performance_guarantee" name="performance_guarantee" rows="3"></textarea>
+                    </div>
+                    <!-- textarea for contract signing -->
+                    <div class="form-group">
+                        <label for="contract_signing">Contract Signing</label>
+                        <textarea class="form-control" id="contract_signing" name="contract_signing" rows="3"></textarea>
+                    </div>
+                    <!-- date range for contract period -->
+                    <div class="form-group">
+                        <label for="contract_period">Contract Period</label>
+                        <input type="text" class="form-control" id="contract_period" name="contract_period" placeholder="Enter Contract Period">
+                    </div>
+                    <!-- date for expiry -->
+                    <div class="form-group">
+                        <label for="expiry">Expiry</label>
+                        <input type="date" class="form-control" id="expiry" name="expiry" placeholder="Enter Expiry">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-            <!-- textarea for contract signing -->
-            <div class="form-group">
-                <label for="contract_signing">Contract Signing</label>
-                <textarea class="form-control" id="contract_signing" name="contract_signing" rows="3"></textarea>
-            </div>
-            <!-- date range for contract period -->
-            <div class="form-group">
-                <label for="contract_period">Contract Period</label>
-                <input type="text" class="form-control" id="contract_period" name="contract_period" placeholder="Enter Contract Period">
-            </div>
-            <!-- date for expiry -->
-            <div class="form-group">
-                <label for="expiry">Expiry</label>
-                <input type="text" class="form-control" id="expiry" name="expiry" placeholder="Enter Expiry">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        </div>
     </body>
 </html>
 
+<?php
+include 'include/footer.php';
+
+?>
 
 <!-- code for submit form -->
 
