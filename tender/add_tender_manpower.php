@@ -38,7 +38,7 @@ include 'include/navbar.php';
                         </select>
                     </div>
                     <!-- form input for manpower option for offsite or deployment -->
-                    <div class="manpower_div">
+                    <div class="manpower_div" id="manpower_div">
 
                         <div class="form-group">
                             <label for="manpower_option">Manpower Option</label>
@@ -53,6 +53,7 @@ include 'include/navbar.php';
                             <textarea class="form-control" id="personal_required" name="personal_required" rows="3"></textarea>
                         </div>
                     </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
 
                 </form>
             </div>
