@@ -1,8 +1,8 @@
 <!-- add connection to database tender -->
 <?php
 $servername = "localhost";
-$username = "username";
-$password = "password";
+$username = "root";
+$password = "";
 
 // Create connection
 $link = mysqli_connect($servername, $username, $password);

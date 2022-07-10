@@ -1,5 +1,7 @@
 <!-- create login system with mysql database -->
-
+<?php
+include 'include/connection.php';
+?>
 
 <!DOCTYPE html>
 <html>
