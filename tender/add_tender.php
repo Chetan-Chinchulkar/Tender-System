@@ -84,10 +84,10 @@ include 'include/footer.php';
 <?php
 if (isset($_POST["submit"])) {
 
-    if ($_SESSION['logged_in'] ==true) {
+    if ($_SESSION['logged_in'] ==false) {
         // echo "<script>document.getElementById('failure').style.display = 'block';</script>";
         
-        $res = mysqli_query($link, "insert into tender values('$_POST[serial_number]','$_POST[city]','$_POST[state]','$_POST[client_name]','$_POST[description]','$_POST[tender_number]','$_POST[tender_date]')") or die(mysqli_error($link));
+        $res = mysqli_query($link, "insert into $table values('$_POST[serial_number]','$_POST[city]','$_POST[state]','$_POST[client_name]','$_POST[description]','$_POST[tender_number]','$_POST[tender_date]')") or die(mysqli_error($link));
         echo "<script>document.getElementById('success').style.display = 'block';</script>";
         header("location: add_tender_bid.php");
     }
