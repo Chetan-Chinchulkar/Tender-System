@@ -6,10 +6,9 @@
 include 'include/connection.php';
 
 // start session
-// session_start();
+session_start();
 ?>
 
-<!-- include right_bar.php -->
 <?php
 include 'include/navbar.php';
 ?>
@@ -60,10 +59,24 @@ include 'include/navbar.php';
                         <label for="tender_date">Tender Date</label>
                         <input type="date" class="form-control" id="tender_date" name="tender_date" placeholder="Tender Date">
                     </div>
+                    <!-- tender NIT upload -->
+                    <div class="form-group">
+                        <label for="tender_nit">Tender NIT</label>
+                        <input type="file" class="form-control" id="tender_nit" name="tender_nit" placeholder="Tender NIT">
+                    </div>
+                    <!-- website or portal link -->
+                    <div class="form-group">
+                        <label for="website_or_portal_link">Website or Portal Link</label>
+                        <input type="text" class="form-control" id="website_or_portal_link" name="website_or_portal_link" placeholder="Website or Portal Link">
+                    </div>
                     <button type="submit" name="submit" class="btn btn-primary" >Submit</button>
 
-
+                    <div class="alert alert-success" id="success" role="alert" style="display: none;" >
+                        This is a success alert—check it out!
+                        
+                    </div>
                     <div class="alert alert-warning" id="failure" style="display: none;">
+                    
                     <strong>Warning!</strong> Indicates a warning that might need attention.
                     
                     </div>
@@ -82,23 +95,29 @@ include 'include/footer.php';
 
 <!-- add php code to submit the form details -->
 <?php
-if (isset($_POST["submit"])) {
-
-    if ($_SESSION['logged_in'] ==false) {
-        // echo "<script>document.getElementById('failure').style.display = 'block';</script>";
+    if (isset($_POST["submit"])) {
         
-        $res = mysqli_query($link, "insert into $table values('$_POST[serial_number]','$_POST[city]','$_POST[state]','$_POST[client_name]','$_POST[description]','$_POST[tender_number]','$_POST[tender_date]')") or die(mysqli_error($link));
-        echo "<script>document.getElementById('success').style.display = 'block';</script>";
-        header("location: add_tender_bid.php");
+        if ($_SESSION['logged_in']==true) {
+
+            $sql = "insert into tender_table (city, state, clientname, description, tendernumber, tenderdate) values('$_REQUEST[city]','$_REQUEST[state]','$_REQUEST[client_name]','$_REQUEST[description]','$_REQUEST[tender_number]','$_REQUEST[tender_date]') ";
+            $_SESSION['tendernumber'] = $_REQUEST['tender_number'];
+            $res = mysqli_query($link, $sql) or die(mysqli_error($link));
+            ?>
+            <script>document.getElementById('success').style.display = 'block';
+            window.location.href = "add_tender_bid.php";
+            </script>
+            <?php
+            // header("location: add_tender_bid.php");
+        }
+        else {
+            ?>
+            <script>
+                document.getElementById('failure').style.display = 'block';
+                // alert("Please login to continue");
+                // window.location.href = "login.php";
+            </script>
+            <?php
+        }
     }
-    else {
-        ?>
-        <script>
-            document.getElementById('failure').style.display = 'block';
-            alert("Please login to continue");
-            window.location.href = "login.php";
-        </script>
-        <?php
-    }
-}
+    
 ?>

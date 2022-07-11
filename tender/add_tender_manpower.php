@@ -12,6 +12,7 @@ session_start();
 ?>
 
 <!-- include right_bar.php -->
+
 <?php
 include 'include/navbar.php';
 ?>

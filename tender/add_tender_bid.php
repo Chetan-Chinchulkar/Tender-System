@@ -10,6 +10,7 @@ session_start();
 ?>
 
 <!-- include right_bar.php -->
+
 <?php
 include 'include/navbar.php';
 ?>
@@ -30,7 +31,7 @@ include 'include/navbar.php';
         <!-- create form  -->
         <div class="main-wthree">
             <div class="container">
-                <form action="add_tender.php" method="POST">
+                <form action="add_tender_bid.php" method="POST">
                     <div class="form-group">
                         <label for="pre_bid_date">Pre-bid Date</label>
                         <input type="date" class="form-control" id="pre_bid_date" name="pre_bid_date" placeholder="Pre-bid Date">
@@ -47,7 +48,7 @@ include 'include/navbar.php';
                         <label for="time_of_submission">Time of Submission</label>
                         <input type="time" class="form-control" id="time_of_submission" name="time_of_submission" placeholder="Last Date of Submission">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
@@ -64,16 +65,30 @@ include 'include/footer.php';
 <!-- php code to submit form details -->
 
 <?php
-    if (isset($_POST["submit1"])) {
-        $count = 0;
+if (isset($_POST["submit"])) {
 
-        $res = mysqli_query($link, "select * from admin where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
-        $count = mysqli_num_rows($res);
-        if ($count == 0) {
-            echo "<script>document.getElementById('failure').style.display = 'block';</script>";
-        } else {
-            $res = mysqli_query($link, "insert into tender values('$_POST[pre_bid_date]','$_POST[pre_bid_time]','$_POST[last_date_of_submission]','$_POST[time_of_submission]')") or die(mysqli_error($link));
-            echo "<script>document.getElementById('success').style.display = 'block';</script>";
-        }
+    
+    if ($_SESSION['logged_in']==true) {
+
+        $sql = "update tender_table set prebiddate=$_REQUEST[pre_bid_date], prebidtime=$_REQUEST[pre_bid_time], lastdate=$_REQUEST[last_date_of_submission], submissiontime=$_REQUEST[time_of_submission]";
+        
+        $res = mysqli_query($link, $sql) or die(mysqli_error($link));
+        
+        ?>
+        <script>document.getElementById('success').style.display = 'block';
+        window.location.href = "add_tender_mode.php";
+        </script>
+        <?php
+
     }
+    else {
+        ?>
+        <script>
+            document.getElementById('failure').style.display = 'block';
+            alert("Please login to continue");
+            // window.location.href = "login.php";
+        </script>
+        <?php
+    }
+}
 ?>

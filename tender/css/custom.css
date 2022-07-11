@@ -3,21 +3,17 @@ label{
     font-size:large;
     font-weight:bold;
     margin-bottom:5px;
-    color: aliceblue;
+    color: rgb(0, 0, 0);
+}
+
+.container{
+    width:50%;
 }
 
 .no_div{
     display: none;
 }
 
-.form-div{
-  padding: 5% ;
-  background-color: white;
-  border-radius: 10px;
-  width: 50%;
-  text-align: center;
-  margin: auto;
-}
 
 .form-control,.btn-submit  {
   width: 100%;

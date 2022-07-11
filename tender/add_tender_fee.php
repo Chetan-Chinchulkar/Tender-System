@@ -11,6 +11,7 @@ session_start();
 ?>
 
 <!-- include right_bar.php -->
+
 <?php
 include 'include/navbar.php';
 ?>
@@ -58,6 +59,12 @@ include 'include/navbar.php';
                             <label for="in_favour_of">In Favour Of</label>
                             <input type="text" class="form-control" id="in_favour_of" name="in_favour_of" placeholder="In Favour Of">
                         </div>
+                        <!-- file UTR upload -->
+                        <div class="form-group">
+                            <label for="UTR">UTR</label>
+                            <input type="file" class="form-control" id="UTR" name="UTR" placeholder="UTR">
+                        </div>
+
                     </div>
 
 

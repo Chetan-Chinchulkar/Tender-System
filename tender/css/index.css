@@ -4716,9 +4716,10 @@ ul.bt-list {
 }
 /*---signin-----*/
 .main-wthree{
-		background:#0b4268;
+		/* background:#0b4268; */
+        background: white;
 		/* min-height:800px; */
-        padding : 10% 5%;
+        padding : 5% 5%;
         min-height: calc(100vh - 345px);
 
 }

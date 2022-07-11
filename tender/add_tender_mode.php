@@ -10,6 +10,7 @@ session_start();
 ?>
 
 <!-- include right_bar.php -->
+
 <?php
 include 'include/navbar.php';
 ?>
@@ -65,6 +66,11 @@ include 'include/navbar.php';
                         <div class="form-group softcopy_div" id="softcopy_link">
                             <label for="link">Link</label>
                             <input type="text" class="form-control" id="link" name="link" placeholder="Link">
+                        </div>
+                        <!-- file uplaod -->
+                        <div class="form-group softcopy_div" id="softcopy_file_upload">
+                            <label for="file_upload">File Upload</label>
+                            <input type="file" class="form-control" id="file_upload" name="file_upload" placeholder="File Upload">
                         </div>
                     </div>
 

@@ -27,9 +27,22 @@ include 'include/navbar.php';
 
 </head>
 <style>
-    
+    .main-wthree{
+		background:#0b4268 !important;
+
+    }
+    .form-div{
+    padding: 5% ;
+    background-color: white;
+    border-radius: 10px;
+    width: 60%;
+    text-align: center;
+    margin: auto;
+    }
     /* submit button with full width and rounded corners */
-    
+    .top-logo{
+        display: none;
+    }
 </style>
 <body>
     <!-- <h1>hi there</h1> -->
@@ -39,7 +52,7 @@ include 'include/navbar.php';
             <div class="container" >
                 <div class=" form-div">
 
-                    <h2><a href="login.php"><img src="download.png" alt="Company Logo" style="width:200px"></a></h2>
+                    <h2 style="margin-bottom:30px;"><a href="login.php"><img src="download.png" alt="Company Logo" style="width:200px"></a></h2>
                     <span style="color:white">
 
                         <h1 style="text-align: center; color:black"> Sign In </h1>
@@ -118,8 +131,12 @@ include 'include/footer.php';
             $count = mysqli_num_rows($res);
 
             if ($count == 1) {
-                $_SESSION['logged_in'] = true; // put session value here 
-                // header("location: add_tender.php");
+                $_SESSION['logged_in'] = true; 
+
+                $_SESSION['username'] = $_POST['username'];
+                $_SESSION['password'] = $_POST['password']; 
+                $_SESSION['user_id'] = $_POST['user_id'];
+
                 ?>
                 <script type="text/javascript">
                 document.getElementById('success').style.display = "block";

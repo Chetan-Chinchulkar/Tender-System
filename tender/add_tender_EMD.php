@@ -10,6 +10,7 @@ session_start();
 ?>
 
 <!-- include right_bar.php -->
+
 <?php
 include 'include/navbar.php';
 ?>
@@ -57,6 +58,11 @@ include 'include/navbar.php';
                         <div class="form-group">
                             <label for="EMD_in_favour_of">EMD In Favour of </label>
                             <input type="text" class="form-control" id="EMD_in_favour_of" name="EMD_in_favour_of" placeholder="EMD In Favour Of">
+                        </div>
+                        <!-- file upload form -->
+                        <div class="form-group">
+                            <label for="EMD_file">EMD File</label>
+                            <input type="file" class="form-control" id="EMD_file" name="EMD_file" placeholder="EMD File">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
