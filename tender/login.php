@@ -135,7 +135,10 @@ include 'include/footer.php';
 
                 $_SESSION['username'] = $_POST['username'];
                 $_SESSION['password'] = $_POST['password']; 
-                $_SESSION['user_id'] = $_POST['user_id'];
+                $userid = $_GET["userid"];
+                $_SESSION['userid'] = $userid;
+                // $_SESSION['userid'] = mysqli_query($link, "select userid from admin where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
+                // $_SESSION['serialno'] = $_POST['user_id'];
 
                 ?>
                 <script type="text/javascript">

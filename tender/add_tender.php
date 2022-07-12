@@ -37,38 +37,38 @@ include 'include/navbar.php';
                     </div>
                     <div class="form-group">
                         <label for="city">City</label>
-                        <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                        <input type="text" class="form-control" id="city" name="city" placeholder="City" required>
                     </div>
                     <div class="form-group">
                         <label for="state">State</label>
-                        <input type="text" class="form-control" id="state" name="state" placeholder="State">
+                        <input type="text" class="form-control" id="state" name="state" placeholder="State" required>
                     </div>
                     <div class="form-group">
                         <label for="client_name">Client Name</label>
-                        <input type="text" class="form-control" id="client_name" name="client_name" placeholder="Client Name">
+                        <input type="text" class="form-control" id="client_name" name="client_name" placeholder="Client Name" required>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <input type="text" class="form-control" id="description" name="description" placeholder="Description">
+                        <input type="text" class="form-control" id="description" name="description" placeholder="Description" required>
                     </div>
                     <div class="form-group">
                         <label for="tender_number">Tender Number</label>
-                        <input type="text" class="form-control" id="tender_number" name="tender_number" placeholder="Tender Number">
+                        <input type="text" class="form-control" id="tender_number" name="tender_number" placeholder="Tender Number" required>
                     </div>
                     <div class="form-group">
                         <label for="tender_date">Tender Date</label>
-                        <input type="date" class="form-control" id="tender_date" name="tender_date" placeholder="Tender Date">
+                        <input type="date" class="form-control" id="tender_date" name="tender_date" placeholder="Tender Date" required>
                     </div>
                     <!-- tender NIT upload -->
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="tender_nit">Tender NIT</label>
-                        <input type="file" class="form-control" id="tender_nit" name="tender_nit" placeholder="Tender NIT">
+                        <input type="file" class="form-control" id="tender_nit" name="tender_nit" placeholder="Tender NIT" required>
                     </div>
-                    <!-- website or portal link -->
+
                     <div class="form-group">
                         <label for="website_or_portal_link">Website or Portal Link</label>
-                        <input type="text" class="form-control" id="website_or_portal_link" name="website_or_portal_link" placeholder="Website or Portal Link">
-                    </div>
+                        <input type="text" class="form-control" id="website_or_portal_link" name="website_or_portal_link" placeholder="Website or Portal Link" required>
+                    </div> -->
                     <button type="submit" name="submit" class="btn btn-primary" >Submit</button>
 
                     <div class="alert alert-success" id="success" role="alert" style="display: none;" >
@@ -99,9 +99,10 @@ include 'include/footer.php';
         
         if ($_SESSION['logged_in']==true) {
 
-            $sql = "insert into tender_table (city, state, clientname, description, tendernumber, tenderdate) values('$_REQUEST[city]','$_REQUEST[state]','$_REQUEST[client_name]','$_REQUEST[description]','$_REQUEST[tender_number]','$_REQUEST[tender_date]') ";
-            $_SESSION['tendernumber'] = $_REQUEST['tender_number'];
+            $sql = "insert into tender_table (city, state, clientname, description, tendernumber, tenderdate) values('$_POST[city]','$_POST[state]','$_POST[client_name]','$_POST[description]','$_POST[tender_number]','$_POST[tender_date]') ";
             $res = mysqli_query($link, $sql) or die(mysqli_error($link));
+
+            
             ?>
             <script>document.getElementById('success').style.display = 'block';
             window.location.href = "add_tender_bid.php";

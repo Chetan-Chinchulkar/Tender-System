@@ -70,9 +70,9 @@ if (isset($_POST["submit"])) {
     
     if ($_SESSION['logged_in']==true) {
 
-        $sql = "update tender_table set prebiddate=$_REQUEST[pre_bid_date], prebidtime=$_REQUEST[pre_bid_time], lastdate=$_REQUEST[last_date_of_submission], submissiontime=$_REQUEST[time_of_submission]";
-        
+        $sql = "update tender_table set prebiddate=$_POST[pre_bid_date], prebidtime=$_POST[pre_bid_time], lastdate=$_POST[last_date_of_submission], submissiontime=$_POST[time_of_submission] where userid=$_SESSION[userid]";
         $res = mysqli_query($link, $sql) or die(mysqli_error($link));
+        
         
         ?>
         <script>document.getElementById('success').style.display = 'block';
