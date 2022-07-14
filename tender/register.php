@@ -16,11 +16,11 @@ include 'include/navbar.php';
 <html>
 
 <head>
-    <title>Tender </title>
+    <title>Register </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <!-- <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' /> -->
+    <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
     <link href="css/index.css" rel='stylesheet' type='text/css' />
     <link href="css/custom.css" rel='stylesheet' type='text/css' /> 
     
@@ -55,32 +55,28 @@ include 'include/navbar.php';
                     <h2 style="margin-bottom:30px;"><a href="login.php"><img src="download.png" alt="Company Logo" style="width:200px"></a></h2>
                     <span style="color:white">
 
-                        <h1 style="text-align: center; color:black"> Sign In </h1>
+                        <h1 style="text-align: center; color:black"> Register </h1>
                     </span>
                     
-                    <form action="login.php" method="POST">
+                    <form action="register.php" method="POST">
                         <div class="form-group">
 
-                            <input type="text" name="username" class="form-control" aria-describedby="userHelp" placeholder="Username">
+                            <input type="text" name="username" class="form-control" aria-describedby="userHelp" placeholder="Username" required>
                             <!-- <small id="userHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                         </div>
                         <div class="form-group">
 
-                            <input type="password" name="password" class="form-control" placeholder="Password">
+                            <input type="password" name="password" class="form-control" placeholder="Password" required>
                         </div>
                         <!-- <input type="submit" name="submit" class="login" value="Log In"> -->
-                        <button type="submit" name="submit" class="btn btn-dark btn-submit">Sign In</button>
-                        <br>
-                        <br>
-                        <p>Not a member? <a href="register.php">Register</a></p>
-
+                        <button type="submit" name="submit" class="btn btn-dark btn-submit">Sign Up</button>
 
                         <!-- <button type="submit" name="submit" class="btn btn-primary">Submit</button> -->
                         <div class="alert alert-success" id="success" role="alert" style="display: none;">
-                            Login successfull!
+                            Registeration successful
                         </div>
                         <div class="alert alert-danger" id="failure" style="margin-top: 80px; display:none;">
-                            <strong>Does not Match</strong> Invalid Username or Password.
+                            <strong>Warning</strong> Username already exists.
                         </div>
                     </form>
 
@@ -134,23 +130,15 @@ include 'include/footer.php';
             $res = mysqli_query($link, "select * from admin where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
             $count = mysqli_num_rows($res);
 
-            if ($count == 1) {
-                $_SESSION['logged_in'] = true; 
-
-                $_SESSION['username'] = $_POST['username'];
-                $_SESSION['password'] = $_POST['password']; 
-                // $userid = $_GET["userid"];
-                // $_SESSION['userid'] = $userid;
-                $_SESSION['userid'] = mysqli_query($link, "(select userid from admin where username='$_POST[username]')") or die(mysqli_error($link));
-                // $_SESSION['userid'] = mysqli_query($link, "select userid from admin where username='$_POST[username]' && password ='$_POST[password]'");
-                // $_SESSION['serialno'] = $_POST['user_id'];
-
-
+            if ($count == 0) {
+                $sql = "insert into admin (username, password) values ('$_POST[username]', '$_POST[password]')";
+                mysqli_query($link, $sql) or die(mysqli_error($link));
+//              get userid fromm admin and insert into tender_table
+                // mysqli_query($link, "insert into tender_table (userid) values ((select userid from admin where username='$_POST[username]'))");
                 ?>
-                
                 <script type="text/javascript">
                 document.getElementById('success').style.display = "block";
-                window.location.href = "add_tender.php";
+                window.location.href = "login.php";
                 </script>
                  
                 <?php

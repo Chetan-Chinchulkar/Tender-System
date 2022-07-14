@@ -61,6 +61,7 @@
                     <li class="nav-item"><a class="nav-link" href="add_tender_additional.php">Additional</a></li>
                     <!-- if logged in -->
                     <?php if ($_SESSION['logged_in']!=true) { ?>
+                    <li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
                     <?php } else { ?>
                     <!-- logout option -->

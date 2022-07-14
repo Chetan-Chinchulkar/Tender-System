@@ -60,24 +60,24 @@ include 'include/navbar.php';
                         <input type="date" class="form-control" id="tender_date" name="tender_date" placeholder="Tender Date" required>
                     </div>
                     <!-- tender NIT upload -->
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label for="tender_nit">Tender NIT</label>
-                        <input type="file" class="form-control" id="tender_nit" name="tender_nit" placeholder="Tender NIT" required>
+                        <input type="file" class="form-control" id="tender_nit" name="tender_nit" placeholder="Tender NIT" >
                     </div>
 
                     <div class="form-group">
                         <label for="website_or_portal_link">Website or Portal Link</label>
-                        <input type="text" class="form-control" id="website_or_portal_link" name="website_or_portal_link" placeholder="Website or Portal Link" required>
-                    </div> -->
+                        <input type="text" class="form-control" id="website_or_portal_link" name="website_or_portal_link" placeholder="Website or Portal Link" >
+                    </div>
                     <button type="submit" name="submit" class="btn btn-primary" >Submit</button>
 
                     <div class="alert alert-success" id="success" role="alert" style="display: none;" >
-                        This is a success alert—check it out!
+                        Tender details added successfully!
                         
                     </div>
                     <div class="alert alert-warning" id="failure" style="display: none;">
                     
-                    <strong>Warning!</strong> Indicates a warning that might need attention.
+                    <strong>Warning!</strong> Check the entered data!
                     
                     </div>
                     
@@ -96,10 +96,13 @@ include 'include/footer.php';
 <!-- add php code to submit the form details -->
 <?php
     if (isset($_POST["submit"])) {
+        // print $_SESSION['userid'] in alert
+
+
         
         if ($_SESSION['logged_in']==true) {
 
-            $sql = "insert into tender_table (city, state, clientname, description, tendernumber, tenderdate) values('$_POST[city]','$_POST[state]','$_POST[client_name]','$_POST[description]','$_POST[tender_number]','$_POST[tender_date]') ";
+            $sql = "insert into tender_table (userid, city, state, clientname, description, tendernumber, tenderdate) values('$_SESSION[userid]', '$_POST[city]','$_POST[state]','$_POST[client_name]','$_POST[description]','$_POST[tender_number]','$_POST[tender_date]') ";
             $res = mysqli_query($link, $sql) or die(mysqli_error($link));
 
             

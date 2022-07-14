@@ -107,3 +107,5 @@ include 'include/footer.php';
 
 ?>
 
+
+<!-- php code to submit the form data in database -->

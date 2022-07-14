@@ -49,6 +49,17 @@ include 'include/navbar.php';
                         <input type="time" class="form-control" id="time_of_submission" name="time_of_submission" placeholder="Last Date of Submission">
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+
+                    <div class="alert alert-success" id="success" role="alert" style="display: none;" >
+                        Tender details added successfully!
+                        
+                    </div>
+                    <div class="alert alert-warning" id="failure" style="display: none;">
+                    
+                    <strong>Warning!</strong> Check the data entered!
+                    
+                    </div>
+                    
                 </form>
             </div>
         </div>
@@ -70,8 +81,18 @@ if (isset($_POST["submit"])) {
     
     if ($_SESSION['logged_in']==true) {
 
-        $sql = "update tender_table set prebiddate=$_POST[pre_bid_date], prebidtime=$_POST[pre_bid_time], lastdate=$_POST[last_date_of_submission], submissiontime=$_POST[time_of_submission] where userid=$_SESSION[userid]";
-        $res = mysqli_query($link, $sql) or die(mysqli_error($link));
+        $pre_bid_date = $_POST['pre_bid_date'];
+        $pre_bid_time = $_POST['pre_bid_time'];
+        $last_date_of_submission = $_POST['last_date_of_submission'];
+        $time_of_submission = $_POST['time_of_submission'];
+        $userid = $_SESSION['userid'];
+
+        // $sql = "INSERT INTO tender_bid (pre_bid_date, pre_bid_time, last_date_of_submission, time_of_submission) VALUES ('$pre_bid_date', '$pre_bid_time', '$last_date_of_submission', '$time_of_submission')";
+        // update query to add tender details
+        $sql = "UPDATE tender_bid SET pre_bid_date = '$pre_bid_date', pre_bid_time = '$pre_bid_time', last_date_of_submission = '$last_date_of_submission', time_of_submission = '$time_of_submission' WHERE userid = '$userid'";
+        
+        // $sql = "UPDATE tender_table SET prebiddate='$_POST[pre_bid_date]', prebidtime='$_POST[pre_bid_time]', lastdate='$_POST[last_date_of_submission]', submissiontime='$_POST[time_of_submission]' where userid=$_SESSION[userid]";
+        $res = mysqli_query($link, $sql) ;
         
         
         ?>
