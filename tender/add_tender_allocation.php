@@ -30,7 +30,7 @@ include 'include/navbar.php';
     <body>
         <div class="main-wthree">
             <div class="container">
-                <form action="add_tender.php" method="POST">
+                <form action="add_tender_allocation.php" method="POST">
                     <!-- allocation details in textarea -->
                     <div class="form-group">
                         <label for="allocation_details">Allocation Details</label>

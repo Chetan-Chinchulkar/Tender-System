@@ -17,7 +17,7 @@
     </head>
     <style>
        body{
-        background: white;
+        background: white !important;
        }
     nav{
         background-color: #0b4268 !important;
@@ -33,6 +33,14 @@
         background-color: white;
         margin: auto;
 
+    }
+    .center{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 40px;
+        height: 15%;
+        background-color: white;
     }
     </style>
     <body>
@@ -65,6 +73,7 @@
                     <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
                     <?php } else { ?>
                     <!-- logout option -->
+                    <!-- <li class="nav-item"><a class="nav-link" href="ind_tender_details.php">Details</a></li> -->
                     <li class="nav-item"><a class="nav-link" onclick="logout()">Logout</a></li>
                     <?php } ?>
 
@@ -74,15 +83,8 @@
             </div>
         </nav>
 
-        <!-- center div to display logo -->
-        <div class="container top-logo" style="">
 
-                <!-- <a class="navbar-brand" href="index.php"> -->
-                    <img src="download.png" alt="..." height="36">
-                    <!-- </a> -->
-                    
-                
-        </div>
+        <img src="download.png" alt="..." height="36" class="center">
 
         
         <script>
