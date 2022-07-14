@@ -58,6 +58,15 @@ include 'include/navbar.php';
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="alert alert-success" id="success" role="alert" style="display: none;" >
+                        Tender details added successfully!
+                        
+                    </div>
+                    <div class="alert alert-warning" id="failure" style="display: none;">
+                    
+                    <strong>Warning!</strong> Check the data entered!
+                    
+                    </div>
                 </form>
             </div>
         </div>
@@ -83,18 +92,37 @@ include 'include/footer.php';
 
 ?>
 
-<!-- php code for submit code -->
+<!-- php code to submit form -->
 <?php
-    if (isset($_POST["submit1"])) {
-        $count = 0;
+if (isset($_POST["submit"])) {
+    // if logged in is true
+    if ($_SESSION["loggedin"] == true) {
+        // get the values from the form
+        $ppt = $_POST["presentation"];
+        $ppt_date = $_POST["presentation_date"];
+        $ppt_time = $_POST["presentation_time"];
+        $ppt_venue = $_POST["presentation_venue"];
+        $userid = $_SESSION["userid"];
 
-        $res = mysqli_query($link, "select * from admin where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
-        $count = mysqli_num_rows($res);
-        if ($count == 0) {
-            echo "<script>document.getElementById('failure').style.display = 'block';</script>";
-        } else {
-            $res = mysqli_query($link, "insert into tender values('$_POST[presentation]','$_POST[presentation_date]','$_POST[presentation_time]','$_POST[presentation_venue]')") or die(mysqli_error($link));
-            echo "<script>document.getElementById('success').style.display = 'block';</script>";
-        }
+        // update tender_table
+        $sql = "UPDATE tender_table SET presentation = '$ppt', presentation_date = '$ppt_date', presentation_time = '$ppt_time', presentation_venue = '$ppt_venue' WHERE userid = '$userid'";
+        $res = mysqli_query($link, $sql);
+
+        ?>
+        <script>document.getElementById('success').style.display = 'block';
+        window.location.href = "add_tender_allocation.php";
+        </script>
+        <?php
+
     }
+    else {
+        ?>
+        <script>
+            document.getElementById('failure').style.display = 'block';
+            alert("Please login to continue");
+            // window.location.href = "login.php";
+        </script>
+        <?php
+    }
+}
 ?>

@@ -69,6 +69,15 @@ include 'include/navbar.php';
 
 
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="alert alert-success" id="success" role="alert" style="display: none;" >
+                        Tender details added successfully!
+                        
+                    </div>
+                    <div class="alert alert-warning" id="failure" style="display: none;">
+                    
+                    <strong>Warning!</strong> Check the data entered!
+                    
+                    </div>
                 </form>
             </div>
         </div>
@@ -93,4 +102,41 @@ include 'include/navbar.php';
 <?php
 include 'include/footer.php';
 
+?>
+
+<!-- php code to submit form -->
+<?php
+if (isset($_POST["submit"])) {
+    // if logged in is true
+    if ($_SESSION["loggedin"] == true) {
+        // get the values from the form
+        $tender_fee = $_POST["tender_fee"];
+        $mode_of_payment = $_POST["mode_of_payment"];
+        $amount = $_POST["amount"];
+        $in_favour_of = $_POST["in_favour_of"];
+        $UTR = $_FILES["UTR"]["name"];
+        $userid = $_SESSION["userid"];
+
+        // update the tender_table table
+        $sql = "UPDATE tender_table SET tender_fee = '$tender_fee', mode_of_payment = '$mode_of_payment', amount = '$amount', in_favour_of = '$in_favour_of', UTR = '$UTR' WHERE userid = '$userid'";
+        $res = mysqli_query($link, $sql);
+
+
+        ?>
+        <script>document.getElementById('success').style.display = 'block';
+        window.location.href = "add_tender_EMD.php";
+        </script>
+        <?php
+
+    }
+    else {
+        ?>
+        <script>
+            document.getElementById('failure').style.display = 'block';
+            alert("Please login to continue");
+            // window.location.href = "login.php";
+        </script>
+        <?php
+    }
+}
 ?>

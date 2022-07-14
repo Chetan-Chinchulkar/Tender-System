@@ -56,7 +56,15 @@ include 'include/navbar.php';
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
-
+                    <div class="alert alert-success" id="success" role="alert" style="display: none;" >
+                        Tender details added successfully!
+                        
+                    </div>
+                    <div class="alert alert-warning" id="failure" style="display: none;">
+                    
+                    <strong>Warning!</strong> Check the data entered!
+                    
+                    </div>
                 </form>
             </div>
         </div>
@@ -82,3 +90,37 @@ include 'include/footer.php';
 
 ?>
 
+<?php
+if (isset($_POST["submit"])) {
+    // if logged in is true
+    if ($_SESSION["loggedin"] == true) {
+        // get the values from the form
+        $manpower = $_POST["manpower"];
+        $manpower_option = $_POST["manpower_option"];
+        $personal_required = $_POST["personal_required"];
+        $tender_id = $_SESSION["tender_id"];
+        $user_id = $_SESSION["user_id"];
+
+        // update tender_table
+        $sql = "UPDATE tender_table SET manpower = '$manpower', manpower_option = '$manpower_option', personal_required = '$personal_required' WHERE tender_id = '$tender_id'";
+        $res = mysqli_query($link, $sql);
+
+
+        ?>
+        <script>document.getElementById('success').style.display = 'block';
+        window.location.href = "add_tender_ppt.php";
+        </script>
+        <?php
+
+    }
+    else {
+        ?>
+        <script>
+            document.getElementById('failure').style.display = 'block';
+            alert("Please login to continue");
+            // window.location.href = "login.php";
+        </script>
+        <?php
+    }
+}
+?>

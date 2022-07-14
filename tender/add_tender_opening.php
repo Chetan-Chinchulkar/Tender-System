@@ -50,6 +50,15 @@ include 'include/navbar.php';
                         <input type="text" class="form-control" id="remarks" name="remarks" placeholder="Remarks">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="alert alert-success" id="success" role="alert" style="display: none;" >
+                        Tender details added successfully!
+                        
+                    </div>
+                    <div class="alert alert-warning" id="failure" style="display: none;">
+                    
+                    <strong>Warning!</strong> Check the data entered!
+                    
+                    </div>
                 </form>
             </div>
         </div>
@@ -62,18 +71,53 @@ include 'include/footer.php';
 ?>
 
 
+<!-- php code to submit form -->
+<?php
+if (isset($_POST["submit"])) {
+    // if logged in is true
+    if ($_SESSION["loggedin"] == true) {
+        // get the values from the form
+        $tech_opening = $_POST["tech_opening"];
+        $status_update = $_POST["status_update"];
+        $financial_opening = $_POST["financial_opening"];
+        $remarks = $_POST["remarks"];
+        $userid = $_SESSION["userid"];
+
+        // update tender_table
+        $sql = "UPDATE tender_table SET tech_opening = '$tech_opening', status_update = '$status_update', financial_opening = '$financial_opening', remarks = '$remarks' WHERE userid = '$userid'";
+        $res = mysqli_query($link, $sql);
+
+        ?>
+        <script>document.getElementById('success').style.display = 'block';
+        window.location.href = "add_tender_refund.php";
+        </script>
+        <?php
+
+    }
+    else {
+        ?>
+        <script>
+            document.getElementById('failure').style.display = 'block';
+            alert("Please login to continue");
+            // window.location.href = "login.php";
+        </script>
+        <?php
+    }
+}
+?>
+
 <!-- php code to submit form details -->
 <?php
-    if (isset($_POST["submit1"])) {
-        $count = 0;
+    // if (isset($_POST["submit1"])) {
+    //     $count = 0;
 
-        $res = mysqli_query($link, "select * from admin where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
-        $count = mysqli_num_rows($res);
-        if ($count == 0) {
-            echo "<script>document.getElementById('failure').style.display = 'block';</script>";
-        } else {
-            $res = mysqli_query($link, "insert into tender values('$_POST[tech_opening]','$_POST[financial_opening]','$_POST[remarks]')") or die(mysqli_error($link));
-            echo "<script>document.getElementById('success').style.display = 'block';</script>";
-        }
-    }
+    //     $res = mysqli_query($link, "select * from admin where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
+    //     $count = mysqli_num_rows($res);
+    //     if ($count == 0) {
+    //         echo "<script>document.getElementById('failure').style.display = 'block';</script>";
+    //     } else {
+    //         $res = mysqli_query($link, "insert into tender values('$_POST[tech_opening]','$_POST[financial_opening]','$_POST[remarks]')") or die(mysqli_error($link));
+    //         echo "<script>document.getElementById('success').style.display = 'block';</script>";
+    //     }
+    // }
 ?>

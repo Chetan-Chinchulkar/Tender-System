@@ -66,6 +66,15 @@ include 'include/navbar.php';
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="alert alert-success" id="success" role="alert" style="display: none;" >
+                        Tender details added successfully!
+                        
+                    </div>
+                    <div class="alert alert-warning" id="failure" style="display: none;">
+                    
+                    <strong>Warning!</strong> Check the data entered!
+                    
+                    </div>
             
                 </form>
             <!-- form input for EMD mode of payment -->
@@ -93,4 +102,41 @@ include 'include/navbar.php';
 <?php
 include 'include/footer.php';
 
+?>
+
+
+<!-- php code to submit form -->
+<?php
+if (isset($_POST["submit"])) {
+    // if logged in is true
+    if ($_SESSION["loggedin"] == true) {
+        // get the values from the form
+        $tender_EMD = $_POST["tender_EMD"];
+        $mode_of_payment = $_POST["mode_of_payment"];
+        $EMD_amount = $_POST["EMD_amount"];
+        $EMD_in_favour_of = $_POST["EMD_in_favour_of"];
+        $EMD_file = $_FILES["EMD_file"]["name"];
+        $userid = $_SESSION["userid"];
+
+        // update the tender_table
+        $sql = "UPDATE tender_table SET tender_EMD = '$tender_EMD', mode_of_payment = '$mode_of_payment', EMD_amount = '$EMD_amount', EMD_in_favour_of = '$EMD_in_favour_of', EMD_file = '$EMD_file' WHERE userid = '$userid'";
+        $res = mysqli_query($link, $sql);
+
+        ?>
+        <script>document.getElementById('success').style.display = 'block';
+        window.location.href = "add_tender_manpower.php";
+        </script>
+        <?php
+
+    }
+    else {
+        ?>
+        <script>
+            document.getElementById('failure').style.display = 'block';
+            alert("Please login to continue");
+            // window.location.href = "login.php";
+        </script>
+        <?php
+    }
+}
 ?>

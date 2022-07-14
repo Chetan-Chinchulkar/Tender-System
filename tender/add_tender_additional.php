@@ -51,6 +51,15 @@ include 'include/navbar.php';
                         <input type="date" class="form-control" id="expiry" name="expiry" placeholder="Enter Expiry">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="alert alert-success" id="success" role="alert" style="display: none;" >
+                        Tender details added successfully!
+                        
+                    </div>
+                    <div class="alert alert-warning" id="failure" style="display: none;">
+                    
+                    <strong>Warning!</strong> Check the data entered!
+                    
+                    </div>
                 </form>
             </div>
         </div>
@@ -64,17 +73,56 @@ include 'include/footer.php';
 
 <!-- code for submit form -->
 
-<?php
-    if (isset($_POST["submit"])) {
-        $count = 0;
 
-        $res = mysqli_query($link, "select * from admin where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
-        $count = mysqli_num_rows($res);
-        if ($count == 0) {
-            echo "<script>document.getElementById('failure').style.display = 'block';</script>";
-        } else {
-            $res = mysqli_query($link, "insert into tender values('$_POST[performance_guarantee]','$_POST[contract_signing]','$_POST[contract_period]','$_POST[expiry]')") or die(mysqli_error($link));
-            echo "<script>document.getElementById('success').style.display = 'block';</script>";
-        }
+<!-- php code to submit form -->
+<?php
+if (isset($_POST["submit"])) {
+    // if logged in is true
+    if ($_SESSION["loggedin"] == true) {
+        // get the values from the form
+        $performance_guarantee = $_POST["performance_guarantee"];
+        $contract_signing = $_POST["contract_signing"];
+        $contract_period = $_POST["contract_period"];
+        $expiry = $_POST["expiry"];
+        $userid = $_SESSION["userid"];
+
+        // update tender_table
+        $sql = "UPDATE tender_table SET performance_guarantee = '$performance_guarantee', contract_signing = '$contract_signing', contract_period = '$contract_period', expiry = '$expiry' WHERE userid = '$userid'";
+        $res = mysqli_query($link, $sql);
+
+
+        ?>
+        <script>document.getElementById('success').style.display = 'block';
+        alert('Tender details added successfully!');
+        // window.location.href = "add_tender_EMD.php";
+        </script>
+        <?php
+
     }
+    else {
+        ?>
+        <script>
+            document.getElementById('failure').style.display = 'block';
+            alert("Please login to continue");
+            // window.location.href = "login.php";
+        </script>
+        <?php
+    }
+}
+?>
+
+
+<?php
+    // if (isset($_POST["submit"])) {
+    //     $count = 0;
+
+    //     $res = mysqli_query($link, "select * from admin where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
+    //     $count = mysqli_num_rows($res);
+    //     if ($count == 0) {
+    //         echo "<script>document.getElementById('failure').style.display = 'block';</script>";
+    //     } else {
+    //         $res = mysqli_query($link, "insert into tender values('$_POST[performance_guarantee]','$_POST[contract_signing]','$_POST[contract_period]','$_POST[expiry]')") or die(mysqli_error($link));
+    //         echo "<script>document.getElementById('success').style.display = 'block';</script>";
+    //     }
+    // }
 ?>
