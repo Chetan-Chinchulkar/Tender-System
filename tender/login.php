@@ -40,7 +40,7 @@ include 'include/navbar.php';
     margin: auto;
     }
     /* submit button with full width and rounded corners */
-    .top-logo{
+    .center{
         display: none;
     }
 </style>
