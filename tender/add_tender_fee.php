@@ -120,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         $ext =  pathinfo($_FILES["UTR"]["name"], PATHINFO_EXTENSION);
-        $UTR = $userid.".".$ext;
+        $UTR = $userid."_utr.".$ext;
 
         // $UTR = $_FILES["UTR"]["name"];
 
@@ -152,9 +152,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // update the tender_table table
-        $sql = "UPDATE tender_table SET TenderFee = '$tender_fee', ModePayment = '$mode_of_payment', Amount = '$amount', InFavourOf = '$InFavourOf', UTR = '$UTR' WHERE userid = '$userid'";
+        $sql = "UPDATE tender_table SET TenderFee = '$tender_fee', ModePayment = '$mode_of_payment', Amount = '$amount', InFavourOf = '$in_favour_of', UTR = '$UTR' WHERE userid = '$userid'";
         $res = mysqli_query($link, $sql) or die(mysqli_error($link));
-
 
         ?>
         <script>document.getElementById('success').style.display = 'block';
