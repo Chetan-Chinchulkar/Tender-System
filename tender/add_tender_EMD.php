@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $EMD_file = $userid.".".$ext;
         
         // upload file
-        $target_dir = "uploads/emd";
+        $target_dir = "uploads/emd/";
         $target_file = $target_dir . $EMD_file;
         $uploadOk = 1;
 
