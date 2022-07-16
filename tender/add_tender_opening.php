@@ -49,7 +49,7 @@ include 'include/navbar.php';
                         <label for="remarks">Remarks</label>
                         <input type="text" class="form-control" id="remarks" name="remarks" placeholder="Remarks">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                     <div class="alert alert-success" id="success" role="alert" style="display: none;" >
                         Tender details added successfully!
                         
@@ -75,7 +75,7 @@ include 'include/footer.php';
 <?php
 if (isset($_POST["submit"])) {
     // if logged in is true
-    if ($_SESSION["loggedin"] == true) {
+    if ($_SESSION["logged_in"] == true) {
         // get the values from the form
         $tech_opening = $_POST["tech_opening"];
         $status_update = $_POST["status_update"];
@@ -84,7 +84,7 @@ if (isset($_POST["submit"])) {
         $userid = $_SESSION["userid"];
 
         // update tender_table
-        $sql = "UPDATE tender_table SET tech_opening = '$tech_opening', status_update = '$status_update', financial_opening = '$financial_opening', remarks = '$remarks' WHERE userid = '$userid'";
+        $sql = "UPDATE tender_table SET TechOpening = '$tech_opening', StatusUpdate = '$status_update', FinancialOpening = '$financial_opening', Remarks = '$remarks' WHERE userid = '$userid'";
         $res = mysqli_query($link, $sql);
 
         ?>
