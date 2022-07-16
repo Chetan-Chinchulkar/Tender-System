@@ -34,11 +34,11 @@ include 'include/navbar.php';
                 <form action="add_tender_refund.php" method="post">
                     <!-- label for REfund -->
 
-                        <!-- option for presentation in yes/no -->
+                        <!-- option for refund in yes/no -->
                         <!-- if yes show options for date and ppt details -->
                         <div class="form-group">
-                            <label for="presentation">Presentation</label>
-                            <select class="form-control" id="presentation" name="presentation">
+                            <label for="refund">Refund</label>
+                            <select class="form-control" id="refund" name="refund">
                                 <option value="refund">Refunded</option>
                                 <option value="norefund">Not Refunded</option>
                             </select>
@@ -74,11 +74,11 @@ if (isset($_POST["submit"])) {
     // if logged in is true
     if ($_SESSION["logged_in"] == true) {
         // get the values from the form
-        $presentation = $_POST["presentation"];
+        $refund = $_POST["refund"];
         $userid = $_SESSION["userid"];
 
         // update tender_table
-        $sql = "UPDATE tender_table SET Refund = '$presentation' WHERE userid = '$userid'";
+        $sql = "UPDATE tender_table SET Refund = '$refund' WHERE userid = '$userid'";
         $res = mysqli_query($link, $sql) or die(mysqli_error($link));
 
         ?>
