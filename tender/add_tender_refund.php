@@ -45,7 +45,7 @@ include 'include/navbar.php';
                         </div>
 
                     
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                         <div class="alert alert-success" id="success" role="alert" style="display: none;" >
                             Tender details added successfully!
                         
@@ -72,15 +72,14 @@ include 'include/footer.php';
 <?php
 if (isset($_POST["submit"])) {
     // if logged in is true
-    if ($_SESSION["loggedin"] == true) {
+    if ($_SESSION["logged_in"] == true) {
         // get the values from the form
         $presentation = $_POST["presentation"];
         $userid = $_SESSION["userid"];
 
         // update tender_table
-        $sql = "UPDATE tender_table SET presentation = '$presentation' WHERE userid = '$userid'";
-        $res = mysqli_query($link, $sql);
-
+        $sql = "UPDATE tender_table SET Refund = '$presentation' WHERE userid = '$userid'";
+        $res = mysqli_query($link, $sql) or die(mysqli_error($link));
 
         ?>
         <script>document.getElementById('success').style.display = 'block';
