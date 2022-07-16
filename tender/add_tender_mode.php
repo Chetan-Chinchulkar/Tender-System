@@ -35,7 +35,7 @@ include 'include/navbar.php';
         <div class="main-wthree">
             <div class="container">
         <!-- create form  -->
-                <form action="add_tender_mode.php" method="POST">
+                <form action="add_tender_mode.php" method="POST" enctype="multipart/form-data">
                     
                     <!-- options for submission as hard copy or soft copy -->
                     <div class="form-group">
@@ -70,7 +70,7 @@ include 'include/navbar.php';
                         <!-- file uplaod -->
                         <div class="form-group softcopy_div" id="softcopy_file_upload">
                             <label for="file_upload">File Upload</label>
-                            <input type="file" class="form-control" id="file_upload" name="file_upload" placeholder="File Upload">
+                            <input name="file_upload" type="file" class="form-control" id="file_upload" placeholder="File Upload">
                         </div>
                     </div>
 
@@ -118,22 +118,63 @@ include 'include/footer.php';
 
 <!-- php code to submit the form data in database -->
 <?php
-if (isset($_POST["submit"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // if logged in is true
-    if ($_SESSION["loggedin"] == true) {
+    if ($_SESSION["logged_in"] == true) {
         // get the values from the form
         $mode_of_submission = $_POST["mode_of_submission"];
-        $hardcopy = $_POST["hardcopy"];
-        $email_id = $_POST["email_id"];
-        $link = $_POST["link"];
-        $file_upload = $_POST["file_upload"];
+        $hardcopy = $_POST["hardcopy"] ?? NULL;
+        $email_id = $_POST["email_id"] ?? NULL;
+        $softcopy_link = $_POST["link"] ?? NULL;
+        
         $userid = $_SESSION["userid"];
 
-        // update query to add details
-        $sql = "UPDATE tender_table SET mode_of_submission = '$mode_of_submission', hardcopy = '$hardcopy', email_id = '$email_id', link = '$link', file_upload = '$file_upload' WHERE userid = '$userid'";
-        $res = mysqli_query($link, $sql);
-        
+        $file_upload = NULL;
 
+        if (isset($_FILES["file_upload"]["name"]) && $mode_of_submission == "soft copy") {
+            $ext =  pathinfo($_FILES["file_upload"]["name"], PATHINFO_EXTENSION);
+            $file_upload = $userid."_softcopy.".$ext;
+
+            // upload file
+            $target_dir = "uploads/mode-softcopy/";
+            $target_file = $target_dir . $file_upload;
+            $uploadOk = 1;
+
+            // No need to check the existence of file, simply overwrite
+
+            // Check file size
+            if ($_FILES["file_upload"]["size"] > 500000) {
+                echo "Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+
+            // Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                echo "Sorry, your file was not uploaded.";
+                exit;
+            // if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($_FILES["file_upload"]["tmp_name"], $target_file)) {
+                echo "The file ". htmlspecialchars( basename( $_FILES["file_upload"]["name"])). " has been uploaded.";
+                } else {
+                echo "Sorry, there was an error uploading your file.";
+                exit;
+                }
+            }
+            // update query to add details
+            $sql = "UPDATE tender_table SET ModeSubmission = '$mode_of_submission', HardCopyType = NULL, SoftcopyEmail = '$email_id', SoftcopyLink = '$softcopy_link', SoftCopyFile = '$file_upload' WHERE userid = '$userid'";
+            $res = mysqli_query($link, $sql) or die(mysqli_error($link));
+        } elseif ($mode_of_submission == "hard copy") {
+            echo "Hardcopy";
+            echo $hardcopy;
+            // exit;
+            // update query to add details
+            $sql = "UPDATE tender_table SET ModeSubmission = '$mode_of_submission', HardcopyType = '$hardcopy', SoftcopyEmail = NULL, SoftcopyLink = NULL, SoftCopyFile = NULL WHERE userid = '$userid'";
+            $res = mysqli_query($link, $sql) or die(mysqli_error($link));
+            exit;
+        } else {
+            exit;
+        }
         ?>
         <script>document.getElementById('success').style.display = 'block';
         window.location.href = "add_tender_fee.php";
