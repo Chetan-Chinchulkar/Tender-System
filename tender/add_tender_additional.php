@@ -30,7 +30,7 @@ include 'include/navbar.php';
         <div class="main-wthree">
             <div class="container">
             <!-- code for textarea for performance gurantee -->
-                <form action="add_tender.php" method="POST">
+                <form action="add_tender_additional.php" method="POST">
                     <div class="form-group">
                         <label for="performance_guarantee">Performance Guarantee</label>
                         <textarea class="form-control" id="performance_guarantee" name="performance_guarantee" rows="3"></textarea>
@@ -50,7 +50,7 @@ include 'include/navbar.php';
                         <label for="expiry">Expiry</label>
                         <input type="date" class="form-control" id="expiry" name="expiry" placeholder="Enter Expiry">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                     <div class="alert alert-success" id="success" role="alert" style="display: none;" >
                         Tender details added successfully!
                         
@@ -77,8 +77,9 @@ include 'include/footer.php';
 <!-- php code to submit form -->
 <?php
 if (isset($_POST["submit"])) {
+
     // if logged in is true
-    if ($_SESSION["loggedin"] == true) {
+    if ($_SESSION["logged_in"] == true) {
         // get the values from the form
         $performance_guarantee = $_POST["performance_guarantee"];
         $contract_signing = $_POST["contract_signing"];
@@ -87,9 +88,8 @@ if (isset($_POST["submit"])) {
         $userid = $_SESSION["userid"];
 
         // update tender_table
-        $sql = "UPDATE tender_table SET performance_guarantee = '$performance_guarantee', contract_signing = '$contract_signing', contract_period = '$contract_period', expiry = '$expiry' WHERE userid = '$userid'";
-        $res = mysqli_query($link, $sql);
-
+        $sql = "UPDATE tender_table SET Performance = '$performance_guarantee', ContractSign = '$contract_signing', ContractPeriod = '$contract_period', Expiry = '$expiry' WHERE userid = '$userid'";
+        $res = mysqli_query($link, $sql) or die(mysqli_error($link));
 
         ?>
         <script>document.getElementById('success').style.display = 'block';
