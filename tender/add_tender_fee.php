@@ -31,7 +31,7 @@ include 'include/navbar.php';
     <body>
         <div class="main-wthree">
             <div class="container">
-                <form action="add_tender_fee.php" method="POST">
+                <form action="add_tender_fee.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="tender_fee">Tender Fee</label>
                         <select class="form-control" id="tender_fee" name="tender_fee">
@@ -106,20 +106,54 @@ include 'include/footer.php';
 
 <!-- php code to submit form -->
 <?php
-if (isset($_POST["submit"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // if logged in is true
-    if ($_SESSION["loggedin"] == true) {
+    if ($_SESSION["logged_in"] == true) {
         // get the values from the form
         $tender_fee = $_POST["tender_fee"];
         $mode_of_payment = $_POST["mode_of_payment"];
         $amount = $_POST["amount"];
         $in_favour_of = $_POST["in_favour_of"];
-        $UTR = $_FILES["UTR"]["name"];
+        
         $userid = $_SESSION["userid"];
 
+
+        $ext =  pathinfo($_FILES["UTR"]["name"], PATHINFO_EXTENSION);
+        $UTR = $userid.".".$ext;
+
+        // $UTR = $_FILES["UTR"]["name"];
+
+        // upload file
+        $target_dir = "uploads/utr/";
+        $target_file = $target_dir . $UTR;
+        $uploadOk = 1;
+
+        // No need to check the existence of file, simply overwrite
+
+        // Check file size
+        if ($_FILES["UTR"]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+            exit;
+        // if everything is ok, try to upload file
+        } else {
+            if (move_uploaded_file($_FILES["UTR"]["tmp_name"], $target_file)) {
+            echo "The file ". htmlspecialchars( basename( $_FILES["UTR"]["name"])). " has been uploaded.";
+            } else {
+            echo "Sorry, there was an error uploading your file.";
+            exit;
+            }
+        }
+
         // update the tender_table table
-        $sql = "UPDATE tender_table SET tender_fee = '$tender_fee', mode_of_payment = '$mode_of_payment', amount = '$amount', in_favour_of = '$in_favour_of', UTR = '$UTR' WHERE userid = '$userid'";
-        $res = mysqli_query($link, $sql);
+        $sql = "UPDATE tender_table SET TenderFee = '$tender_fee', ModePayment = '$mode_of_payment', Amount = '$amount', InFavourOf = '$InFavourOf', UTR = '$UTR' WHERE userid = '$userid'";
+        $res = mysqli_query($link, $sql) or die(mysqli_error($link));
 
 
         ?>
