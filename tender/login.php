@@ -28,7 +28,8 @@ include 'include/navbar.php';
 </head>
 <style>
     .main-wthree{
-		background:#0b4268 !important;
+		/* background:#0b4268 !important; */
+		background:white !important;
 
     }
     .form-div{
@@ -129,6 +130,13 @@ include 'include/footer.php';
 
 <?php
         if (isset($_POST["submit"])) {
+            echo "eeee";
+            ?>
+            <!-- <script>
+                alert("hello");
+
+            </script> -->
+            <?php
             $count = 0;
 
             $res = mysqli_query($link, "select * from admin where username='$_POST[username]' && password ='$_POST[password]'") or die(mysqli_error($link));
@@ -141,9 +149,8 @@ include 'include/footer.php';
                 $_SESSION['password'] = $_POST['password']; 
                 // $userid = $_GET["userid"];
                 // $_SESSION['userid'] = $userid;
-                $_SESSION['userid'] = mysqli_query($link, "(select userid from admin where username='$_POST[username]')") or die(mysqli_error($link));
-                // $_SESSION['userid'] = mysqli_query($link, "select userid from admin where username='$_POST[username]' && password ='$_POST[password]'");
-                // $_SESSION['serialno'] = $_POST['user_id'];
+                // $_SESSION['userid'] = mysqli_query($link, "(select userid from admin where username='$_POST[username]')") or die(mysqli_error($link));
+                $_SESSION['userid'] = mysqli_query($link, "(select userid from admin where username='$_POST[username]')")->fetch_row()[0] or die(mysqli_error($link));
 
 
                 ?>

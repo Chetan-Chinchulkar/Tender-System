@@ -28,7 +28,8 @@ include 'include/navbar.php';
 </head>
 <style>
     .main-wthree{
-		background:#0b4268 !important;
+		/* background:#0b4268 !important; */
+		background:white !important;
 
     }
     .form-div{

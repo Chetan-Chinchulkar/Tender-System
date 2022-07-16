@@ -31,7 +31,9 @@ include 'include/navbar.php';
         <!-- create form  -->
         <div class="main-wthree">
             <div class="container">
-                <form action="add_tender_bid.php" method="POST">
+                <!-- <form action="add_tender_bid.php" method="POST"> -->
+                <form action="add_tender_bid.php" method="POST" enctype="multipart/form-data">
+
                     <div class="form-group">
                         <label for="pre_bid_date">Pre-bid Date</label>
                         <input type="date" class="form-control" id="pre_bid_date" name="pre_bid_date" placeholder="Pre-bid Date">
@@ -87,9 +89,9 @@ if (isset($_POST["submit"])) {
         $time_of_submission = $_POST['time_of_submission'];
         $userid = $_SESSION['userid'];
 
-        // $sql = "INSERT INTO tender_bid (pre_bid_date, pre_bid_time, last_date_of_submission, time_of_submission) VALUES ('$pre_bid_date', '$pre_bid_time', '$last_date_of_submission', '$time_of_submission')";
+
         // update query to add tender details
-        $sql = "UPDATE tender_bid SET pre_bid_date = '$pre_bid_date', pre_bid_time = '$pre_bid_time', last_date_of_submission = '$last_date_of_submission', time_of_submission = '$time_of_submission' WHERE userid = '$userid'";
+        $sql = "UPDATE tender_table SET pre_bid_date = '$pre_bid_date', pre_bid_time = '$pre_bid_time', last_date_of_submission = '$last_date_of_submission', time_of_submission = '$time_of_submission' WHERE userid = '$userid'";
         
         // $sql = "UPDATE tender_table SET prebiddate='$_POST[pre_bid_date]', prebidtime='$_POST[pre_bid_time]', lastdate='$_POST[last_date_of_submission]', submissiontime='$_POST[time_of_submission]' where userid=$_SESSION[userid]";
         $res = mysqli_query($link, $sql) ;

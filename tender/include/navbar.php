@@ -20,7 +20,8 @@
         background: white !important;
        }
     nav{
-        background-color: #0b4268 !important;
+        /* background-color: #0b4268 !important; */
+        background-color: black !important;
     }
 
     .active{
@@ -39,15 +40,19 @@
         margin-left: auto;
         margin-right: auto;
         margin-top: 40px;
-        height: 15%;
+        height: 200px;
         background-color: white;
+    }
+    .nav-item .nav-link, .navbar-brand{
+        color: white !important;
+        font-weight: 600;
     }
     </style>
     <body>
 
 
         <!-- make a navbar  with the links of other pages-->
-        <nav class="navbar navbar-expand navbar-dark">
+        <nav class="navbar navbar-expand">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.php">
@@ -56,29 +61,29 @@
                     <a class="navbar-brand" href="index.php">Tender</a>
                 </div>
                 <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="add_tender.php">Tender</a></li>
-                    <li class="nav-item"><a class="nav-link" href="add_tender_bid.php"> Bid</a></li>
-                    <li class="nav-item"><a class="nav-link" href="add_tender_mode.php"> Mode</a></li>
-                    <li class="nav-item"><a class="nav-link" href="add_tender_fee.php"> Fee</a></li>
-                    <li class="nav-item"><a class="nav-link" href="add_tender_EMD.php"> EMD</a></li>
-                    <li class="nav-item"><a class="nav-link" href="add_tender_manpower.php"> Manpower</a></li>
-                    <li class="nav-item"><a class="nav-link" href="add_tender_ppt.php"> Presentation</a></li>
-                    <li class="nav-item"><a class="nav-link" href="add_tender_allocation.php">Allocation</a></li>
-                    <li class="nav-item"><a class="nav-link" href="add_tender_opening.php"> Opening</a></li>
-                    <li class="nav-item"><a class="nav-link" href="add_tender_refund.php"> Refund</a></li>
-                    <li class="nav-item"><a class="nav-link" href="add_tender_additional.php">Additional</a></li>
+                    <li class="nav-item"><a class="nav-link" href="add_tender.php"> Tender </a></li>
+                    <li class="nav-item"><a class="nav-link" href="add_tender_bid.php">  Bid </a></li>
+                    <li class="nav-item"><a class="nav-link" href="add_tender_mode.php">  Mode </a></li>
+                    <li class="nav-item"><a class="nav-link" href="add_tender_fee.php">  Fee </a></li>
+                    <li class="nav-item"><a class="nav-link" href="add_tender_EMD.php">  EMD </a></li>
+                    <li class="nav-item"><a class="nav-link" href="add_tender_manpower.php">  Manpower </a></li>
+                    <li class="nav-item"><a class="nav-link" href="add_tender_ppt.php">  Presentation </a></li>
+                    <li class="nav-item"><a class="nav-link" href="add_tender_allocation.php"> Allocation </a></li>
+                    <li class="nav-item"><a class="nav-link" href="add_tender_opening.php">  Opening </a></li>
+                    <li class="nav-item"><a class="nav-link" href="add_tender_refund.php">  Refund </a></li>
+                    <li class="nav-item"><a class="nav-link" href="add_tender_additional.php"> Additional </a></li>
                     <!-- if logged in -->
                     <?php if ($_SESSION['logged_in']!=true) { ?>
-                    <li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.php"> Register </a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.php"> Login </a></li>
                     <?php } else { ?>
                     <!-- logout option -->
-                    <!-- <li class="nav-item"><a class="nav-link" href="ind_tender_details.php">Details</a></li> -->
-                    <li class="nav-item"><a class="nav-link" onclick="logout()">Logout</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link" href="ind_tender_details.php"> Details </a></li> -->
+                    <li class="nav-item"><a class="nav-link" onclick="logout()"> Logout </a></li>
                     <?php } ?>
 
                     <!-- tenderdeatils -->
-                    <li class="nav-item"><a class="nav-link" href="tender_details.php">Tender Details</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tender_details.php"> Tender  Details </a></li>
                 </ul>
             </div>
         </nav>
