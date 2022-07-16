@@ -31,7 +31,7 @@ include 'include/navbar.php';
         <div class="main-wthree">
             <div class="container">
         <!-- yes/no form for EMD -->
-                <form action="add_tender_EMD.php" method="POST">
+                <form name="add_tender_EMD" action="add_tender_EMD.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="tender_EMD">Tender EMD</label>
                         <select class="form-control" id="tender_EMD" name="tender_EMD">
@@ -65,7 +65,7 @@ include 'include/navbar.php';
                             <input type="file" class="form-control" id="EMD_file" name="EMD_file" placeholder="EMD File">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                     <div class="alert alert-success" id="success" role="alert" style="display: none;" >
                         Tender details added successfully!
                         
@@ -104,22 +104,55 @@ include 'include/footer.php';
 
 ?>
 
-
 <!-- php code to submit form -->
 <?php
-if (isset($_POST["submit"])) {
+// if (isset($_POST["submit"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // if logged in is true
-    if ($_SESSION["loggedin"] == true) {
+    if ($_SESSION["logged_in"] == true) {
         // get the values from the form
         $tender_EMD = $_POST["tender_EMD"];
         $mode_of_payment = $_POST["mode_of_payment"];
         $EMD_amount = $_POST["EMD_amount"];
         $EMD_in_favour_of = $_POST["EMD_in_favour_of"];
-        $EMD_file = $_FILES["EMD_file"]["name"];
+        
         $userid = $_SESSION["userid"];
+        
+        $ext =  pathinfo($_FILES["EMD_file"]["name"], PATHINFO_EXTENSION);
+        $EMD_file = $userid.".".$ext;
+        
+        // upload file
+        $target_dir = "uploads/emd";
+        $target_file = $target_dir . $EMD_file;
+        $uploadOk = 1;
+
+        // No need to check the existence of file, simply overwrite
+
+        // Check file size
+        if ($_FILES["tender_nit"]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+            exit;
+        // if everything is ok, try to upload file
+        } else {
+            if (move_uploaded_file($_FILES["tender_nit"]["tmp_name"], $target_file)) {
+            echo "The file ". htmlspecialchars( basename( $_FILES["tender_nit"]["name"])). " has been uploaded.";
+            } else {
+            echo "Sorry, there was an error uploading your file.";
+            }
+        }
 
         // update the tender_table
-        $sql = "UPDATE tender_table SET tender_EMD = '$tender_EMD', mode_of_payment = '$mode_of_payment', EMD_amount = '$EMD_amount', EMD_in_favour_of = '$EMD_in_favour_of', EMD_file = '$EMD_file' WHERE userid = '$userid'";
+        // $sql = "UPDATE tender_table SET tender_EMD = '$tender_EMD', mode_of_payment = '$mode_of_payment', EMD_amount = '$EMD_amount', EMD_in_favour_of = '$EMD_in_favour_of', EMD_file = '$EMD_file' WHERE userid = '$userid'";
+        $sql = "UPDATE tender_table SET TenderEMD = '$tender_EMD', 
+        ModePay = '$mode_of_payment', EMDAmount = '$EMD_amount', EMDInFavour = '$EMD_in_favour_of', EMDFile = '$EMD_file' WHERE userid = '$userid'";
+        echo $sql;
+        // exit;
         $res = mysqli_query($link, $sql);
 
         ?>
