@@ -55,7 +55,7 @@ include 'include/navbar.php';
                             <textarea class="form-control" id="personal_required" name="personal_required" rows="3"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                     <div class="alert alert-success" id="success" role="alert" style="display: none;" >
                         Tender details added successfully!
                         
@@ -93,18 +93,24 @@ include 'include/footer.php';
 <?php
 if (isset($_POST["submit"])) {
     // if logged in is true
-    if ($_SESSION["loggedin"] == true) {
+    if ($_SESSION["logged_in"] == true) {
         // get the values from the form
-        $manpower = $_POST["manpower"];
-        $manpower_option = $_POST["manpower_option"];
-        $personal_required = $_POST["personal_required"];
-        $tender_id = $_SESSION["tender_id"];
-        $user_id = $_SESSION["user_id"];
+        
+        $manpower = $_POST["manpower"] ?? NULL;
+        $manpower_option = $_POST["manpower_option"] ?? NULL;
+        $personal_required = $_POST["personal_required"] ?? NULL;
+        // $tender_id = $_SESSION["tender_id"] ?? NULL;
+        $user_id = $_SESSION["userid"];
 
-        // update tender_table
-        $sql = "UPDATE tender_table SET manpower = '$manpower', manpower_option = '$manpower_option', personal_required = '$personal_required' WHERE tender_id = '$tender_id'";
-        $res = mysqli_query($link, $sql);
-
+        if ($manpower == "no") {
+            // update tender_table
+            $sql = "UPDATE tender_table SET ManPower = '$manpower', ManpowerOption = NULL, `Personal Required` = NULL WHERE userid = '$user_id'";
+            $res = mysqli_query($link, $sql);
+        } else {
+            // update tender_table
+            $sql = "UPDATE tender_table SET ManPower = '$manpower', ManpowerOption = '$manpower_option', `Personal Required` = '$personal_required' WHERE userid = '$user_id'";
+            $res = mysqli_query($link, $sql);
+        }
 
         ?>
         <script>document.getElementById('success').style.display = 'block';
