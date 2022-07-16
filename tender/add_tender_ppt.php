@@ -57,7 +57,7 @@ include 'include/navbar.php';
                             <input type="text" class="form-control" id="presentation_venue" name="presentation_venue" placeholder="Presentation Venue">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                     <div class="alert alert-success" id="success" role="alert" style="display: none;" >
                         Tender details added successfully!
                         
@@ -96,7 +96,7 @@ include 'include/footer.php';
 <?php
 if (isset($_POST["submit"])) {
     // if logged in is true
-    if ($_SESSION["loggedin"] == true) {
+    if ($_SESSION["logged_in"] == true) {
         // get the values from the form
         $ppt = $_POST["presentation"];
         $ppt_date = $_POST["presentation_date"];
@@ -104,9 +104,15 @@ if (isset($_POST["submit"])) {
         $ppt_venue = $_POST["presentation_venue"];
         $userid = $_SESSION["userid"];
 
-        // update tender_table
-        $sql = "UPDATE tender_table SET presentation = '$ppt', presentation_date = '$ppt_date', presentation_time = '$ppt_time', presentation_venue = '$ppt_venue' WHERE userid = '$userid'";
-        $res = mysqli_query($link, $sql);
+        if ($ppt == "no") {
+            // update tender_table
+            $sql = "UPDATE tender_table SET PPT = '$ppt', pptDate = NULL, pptTime = NULL, Venue = NULL WHERE userid = '$userid'";
+            $res = mysqli_query($link, $sql);
+        } else {
+            // update tender_table
+            $sql = "UPDATE tender_table SET PPT = '$ppt', pptDate = '$ppt_date', pptTime = '$ppt_time', Venue = '$ppt_venue' WHERE userid = '$userid'";
+            $res = mysqli_query($link, $sql);
+        }
 
         ?>
         <script>document.getElementById('success').style.display = 'block';
