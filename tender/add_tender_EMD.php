@@ -129,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // No need to check the existence of file, simply overwrite
 
         // Check file size
-        if ($_FILES["tender_nit"]["size"] > 500000) {
+        if ($_FILES["EMD_file"]["size"] > 500000) {
             echo "Sorry, your file is too large.";
             $uploadOk = 0;
         }
@@ -140,8 +140,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         // if everything is ok, try to upload file
         } else {
-            if (move_uploaded_file($_FILES["tender_nit"]["tmp_name"], $target_file)) {
-            echo "The file ". htmlspecialchars( basename( $_FILES["tender_nit"]["name"])). " has been uploaded.";
+            if (move_uploaded_file($_FILES["EMD_file"]["tmp_name"], $target_file)) {
+            echo "The file ". htmlspecialchars( basename( $_FILES["EMD_file"]["name"])). " has been uploaded.";
             } else {
             echo "Sorry, there was an error uploading your file.";
             }
