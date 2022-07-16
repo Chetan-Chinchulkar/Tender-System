@@ -37,7 +37,7 @@ include 'include/navbar.php';
                         <textarea class="form-control" id="allocation_details" name="allocation_details" rows="3"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                     <div class="alert alert-success" id="success" role="alert" style="display: none;" >
                         Tender details added successfully!
                         
@@ -63,13 +63,13 @@ include 'include/footer.php';
 <?php
 if (isset($_POST["submit"])) {
     // if logged in is true
-    if ($_SESSION["loggedin"] == true) {
+    if ($_SESSION["logged_in"] == true) {
         // get the values from the form
         $allocation_details = $_POST["allocation_details"];
         $userid = $_SESSION["userid"];
 
         // update tender_table
-        $sql = "UPDATE tender_table SET allocation_details = '$allocation_details' WHERE userid = '$userid'";
+        $sql = "UPDATE tender_table SET Allocation = '$allocation_details' WHERE userid = '$userid'";
         $res = mysqli_query($link, $sql);
 
         ?>
