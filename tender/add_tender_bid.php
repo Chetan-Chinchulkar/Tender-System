@@ -89,11 +89,10 @@ if (isset($_POST["submit"])) {
 
         // $sql = "INSERT INTO tender_bid (pre_bid_date, pre_bid_time, last_date_of_submission, time_of_submission) VALUES ('$pre_bid_date', '$pre_bid_time', '$last_date_of_submission', '$time_of_submission')";
         // update query to add tender details
-        $sql = "UPDATE tender_bid SET pre_bid_date = '$pre_bid_date', pre_bid_time = '$pre_bid_time', last_date_of_submission = '$last_date_of_submission', time_of_submission = '$time_of_submission' WHERE userid = '$userid'";
+        $sql = "UPDATE tender_table SET PreBidDate = '$pre_bid_date', PreBidTime = '$pre_bid_time', LastDate = '$last_date_of_submission', SubmissionTime = '$time_of_submission' WHERE userid = '$userid'";
         
         // $sql = "UPDATE tender_table SET prebiddate='$_POST[pre_bid_date]', prebidtime='$_POST[pre_bid_time]', lastdate='$_POST[last_date_of_submission]', submissiontime='$_POST[time_of_submission]' where userid=$_SESSION[userid]";
         $res = mysqli_query($link, $sql) ;
-        
         
         ?>
         <script>document.getElementById('success').style.display = 'block';
